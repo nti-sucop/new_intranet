@@ -1,0 +1,113 @@
+/* =========================================
+   1. CONFIGURAÇÃO DA BARRA LATERAL (UNIVERSAL)
+   ========================================= */
+selector {
+    width: 250px; /* Largura Aberta */
+    height: 100vh;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    /* AQUI ESTÁ A CORREÇÃO: Reduzido de 10000 para 9000 */
+    z-index: 9000 !important; 
+    
+    transition: width 0.3s ease !important; /* Transição suave da largura */
+    background-color: #fff;
+    overflow-x: hidden;
+    
+    /* Espaço para o logo não colar no topo */
+    padding-top: 40px !important; 
+    box-sizing: border-box; 
+}
+
+selector::-webkit-scrollbar { display: none; }
+
+/* Botão Toggle */
+.sidebar-toggle { cursor: pointer; transition: all .3s ease; }
+selector .sidebar-toggle:hover { transform: translateX(-2px); }
+
+/* --- ESTADO FECHADO (APLICA EM TODAS AS TELAS) --- */
+/* Quando o body tem a classe 'left', a barra fica com 80px */
+body.left selector { 
+    width: 80px !important; 
+}
+
+/* Ajuste do botão toggle quando fechado */
+body.left selector .sidebar-toggle { transform: rotate(180deg); right: 5px; }
+body.left selector .sidebar-toggle:hover { transform: rotate(180deg) translateX(-2px); }
+
+/* Ajustes visuais internos (Ícones centralizados) */
+body.left selector .elementor-icon-list-items li a { 
+    padding: 8px !important; height: 36px; 
+}
+
+/* Esconde Textos e Logos quando fechado */
+body.left selector .elementor-icon-list-text,
+body.left selector .logo,
+body.left selector .user, 
+body.left selector .nome,
+body.left selector .logo-sucop {
+    opacity: 0;
+    visibility: hidden;
+    font-size: 0px;
+    transition: all 0.2s ease;
+}
+
+/* Transições para quando abrir */
+selector .elementor-icon-list-text, selector .logo, selector .user img { transition: all 0.3s ease; }
+
+
+/* =========================================
+   2. LÓGICA DE EMPURRAR O CONTEÚDO (UNIVERSAL)
+   ========================================= */
+/* Agora o site é empurrado em QUALQUER resolução */
+
+/* --- HEADER FIXO --- */
+/* Quando Aberto (250px) */
+body:not(.left) .my-sticky-header {
+    padding-left: 250px !important;
+    width: 100% !important;
+    left: 0 !important;
+    transition: padding-left 0.3s ease;
+}
+/* Quando Fechado (80px) */
+body.left .my-sticky-header {
+    padding-left: 80px !important;
+    transition: padding-left 0.3s ease;
+}
+
+/* --- CORPO DO SITE E FOOTER --- */
+/* Quando Aberto (250px) */
+body:not(.left) .site-footer,
+body:not(.left) div[data-elementor-type="wp-page"],
+body:not(.left) div[data-elementor-type="page"],
+body:not(.left) article.page {
+    margin-left: 250px !important;
+    width: auto !important;
+    transition: margin-left 0.3s ease;
+}
+
+/* Quando Fechado (80px) */
+body.left .site-footer,
+body.left div[data-elementor-type="wp-page"],
+body.left div[data-elementor-type="page"],
+body.left article.page {
+    margin-left: 80px !important;
+    width: auto !important;
+    transition: margin-left 0.3s ease;
+}
+
+/* =========================================
+   3. AJUSTE DE SEGURANÇA PARA CELULAR (OPCIONAL)
+   ========================================= */
+/* Evita que o site quebre horizontalmente em telas muito pequenas quando aberto */
+@media (max-width: 400px) {
+    /* Se a tela for muito pequena, quando abrir, a barra ocupa quase tudo,
+       mas mantemos a lógica de empurrar, o usuário só terá que rolar para o lado
+       ou fechar a barra para ver o conteúdo. */
+    body:not(.left) selector {
+        width: 80% !important; /* Opcional: limita a 80% da tela em vez de 250px fixos se preferir */
+        max-width: 250px;
+    }
+}
