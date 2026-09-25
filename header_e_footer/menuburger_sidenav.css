@@ -1,0 +1,46 @@
+/* ---------------------------------------- 
+   CENTRALIZAÇÃO DO TOGGLE DA SIDEBAR 
+   ---------------------------------------- */
+@media (max-width: 1024px) {
+    selector .elementor-widget-container,
+    selector .sidebar-toggle {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        right: auto !important; 
+        left: auto !important;
+    }
+    
+    selector i, 
+    selector svg {
+        width: 40px !important;
+        max-width: 40px !important;
+        height: auto !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* Base do botão toggle */
+.sidebar-toggle {
+    cursor: pointer;
+    transition: transform 0.3s ease, margin-top 0.3s ease !important;
+}
+
+/* 1. BARRA ABERTA (body NÃO tem a classe 'left') */
+/* Zera a margem superior para ficar perfeitamente alinhado com o topo da sidebar */
+body:not(.left) .sidebar-toggle,
+body:not(.left) selector .sidebar-toggle {
+    margin-top: 0px !important;
+    transform: rotate(0deg) !important;
+}
+
+/* 2. BARRA FECHADA (body TEM a classe 'left') */
+/* Aplica os 18px para descer e alinhar com as imagens do navbar + aplica a rotação de 180° */
+body.left .sidebar-toggle,
+body.left selector .sidebar-toggle { 
+    margin-top: 18px !important; 
+    transform: rotate(180deg) !important; 
+}

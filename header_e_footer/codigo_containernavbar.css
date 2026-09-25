@@ -1,0 +1,165 @@
+/* --- 1. O CABEÇALHO (Container Principal) --- */
+selector {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    /* 1ª MUDANÇA: O pai agora tem o poder máximo, vencendo a sidebar */
+    z-index: 999999 !important; 
+    
+    /* 2ª MUDANÇA: Força o Elementor a não cortar o menu que vaza para baixo */
+    overflow: visible !important; 
+    
+    background-color: #0073ce; /* Azul */
+    
+    /* Tamanho INICIAL (Grande) */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+    /* Transição suave */
+    transition: padding 300ms ease, background-color 300ms ease;
+}
+
+/* --- 2. CORREÇÃO DO CORPO DO SITE --- */
+/* 1. Estado Normal (Barra ABERTA - Cabeçalho mais fino) */
+body {
+    padding-top: 120px !important; /* Ajuste para a altura do cabeçalho sem a logo */
+    transition: padding-top 0.3s ease !important; /* Faz o título descer/subir suavemente, sem dar soco na tela */
+}
+
+/* 2. Estado Fechado (Barra FECHADA - Logo aparece e cabeçalho fica mais alto) */
+body.left {
+    padding-top: 180px !important; /* Aumente ou diminua esse valor para o título descer o suficiente e escapar do cabeçalho */
+}
+
+/* --- 3. ESTADO "STICKY" (QUANDO ROLA A PÁGINA) --- */
+selector.sticky {
+    /* Removemos o enchimento do container para ele ficar fininho */
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    /* Adiciona sombra */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- 4. IMAGEM (LOGO) --- */
+/* Estado Normal */
+selector .elementor-widget-image img {
+    transition: all 300ms ease;
+    width: 100%; /* Tamanho original */
+}
+
+/* Estado Sticky: Usamos max-width em vez de scale para liberar espaço físico */
+selector.sticky .elementor-widget-image img {
+    max-width: 60%;
+}
+
+/* ==================================================
+   5. MENU DROPDOWN FIXO NA TELA (Ignora bloqueios do Elementor)
+   ================================================== */
+@media (max-width: 1024px) {
+    .menu-mobile-custom .hfe-nav-menu__dropdown {
+        position: fixed !important; /* Desprende a caixa do cabeçalho e fixa na tela */
+        top: 80px !important;       /* Distância do topo (ajuste se precisar descer ou subir) */
+        right: 20px !important;     /* Distância da borda direita da tela */
+        left: auto !important;      /* Impede que o menu grude na barra lateral */
+        
+        z-index: 999999 !important; /* Nível máximo absoluto */
+        
+        width: auto !important;
+        min-width: 250px !important;
+        max-width: 80vw !important;
+        
+        /* Adiciona uma leve sombra para separar do fundo azul */
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2) !important; 
+    }
+
+    /* Garante que o container interno não limite o dropdown */
+    .menu-mobile-custom .hfe-nav-menu__dropdown-wrapper {
+        position: static !important;
+    }
+}
+/* --- 1. O CABEÇALHO (Container Principal) --- */
+selector {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    z-index: 999999 !important; 
+    overflow: visible !important; 
+    
+    background-color: #0073ce; /* Azul */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition: padding 300ms ease, background-color 300ms ease;
+}
+
+/* --- 2. CORREÇÃO DO CORPO DO SITE --- */
+body {
+    padding-top: 120px; 
+}
+
+/* --- 3. ESTADO "STICKY" (QUANDO ROLA A PÁGINA) --- */
+selector.sticky {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- 4. IMAGEM (LOGO) --- */
+selector .elementor-widget-image img {
+    transition: all 300ms ease;
+    width: 100%; 
+}
+
+selector.sticky .elementor-widget-image img {
+    max-width: 60%;
+}
+
+/* ==================================================
+   5. MENU DROPDOWN FIXO NA TELA (Mobile)
+   ================================================== */
+@media (max-width: 1024px) {
+    .menu-mobile-custom .hfe-nav-menu__dropdown {
+        position: fixed !important; 
+        top: 80px !important;       
+        right: 20px !important;     
+        left: auto !important;      
+        
+        z-index: 999999 !important; 
+        
+        width: auto !important;
+        min-width: 250px !important;
+        max-width: 80vw !important;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2) !important; 
+    }
+
+    .menu-mobile-custom .hfe-nav-menu__dropdown-wrapper {
+        position: static !important;
+    }
+}
+
+/* ==================================================
+   6. MOVIMENTO DO CABEÇALHO (Salva a logo da SUCOP)
+   ================================================== */
+/* Para Notebooks pequenos e Tablets (Até 1024px) */
+@media (max-width: 1024px) {
+    selector .elementor-widget-image img {
+        max-width: 75% !important; /* Reduz as logos para 75% do tamanho original */
+        height: auto !important;
+        margin: 0 auto !important; /* Ajuda a manter centralizado na coluna */
+    }
+}
+
+/* Para Celulares (Até 768px) */
+@media (max-width: 768px) {
+    selector .elementor-widget-image img {
+        max-width: 60% !important; /* Reduz ainda mais no celular para caber o hambúrguer */
+    }
+    
+    /* Opcional: diminui um pouco o espaço entre as colunas no celular para dar respiro */
+    selector .elementor-column-gap-default > .elementor-column > .elementor-element-populated {
+        padding: 5px !important;
+    }
+}
